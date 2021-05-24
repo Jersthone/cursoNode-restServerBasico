@@ -15,11 +15,6 @@ const usuariosGet = async(req = request, res = response) => {
             Nan
         });
     }
-    // const usuarios = await Usuario.find(query)
-    //     .skip(Number(desde))
-    //     .limit(Number(limite));
-
-    // const total = await Usuario.countDocuments(query);
 
     const [total, usuarios] = await Promise.all([
         Usuario.countDocuments(query),
@@ -65,7 +60,7 @@ const usuariosPut = async(req, res) => {
         resto.password = bcryptjs.hashSync(password, salt);
     }
 
-    const usuario = await Usuario.findByIdAndUpdate(id, resto);
+    const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true });
     res.json({
         usuario
     });
